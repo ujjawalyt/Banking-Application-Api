@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Branches {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "branch_id")
 	private Long branchid;
 

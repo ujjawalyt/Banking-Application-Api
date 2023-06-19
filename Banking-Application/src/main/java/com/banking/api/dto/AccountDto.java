@@ -25,6 +25,6 @@ public class AccountDto {
 	
 	private LocalDateTime createdat;
 	
-	private CustomerDto customerDto;
+//	private CustomerDto customerDto;
 	
 }

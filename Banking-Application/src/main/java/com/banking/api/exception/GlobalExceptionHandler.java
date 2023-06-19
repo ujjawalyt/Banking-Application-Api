@@ -49,4 +49,18 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(error, HttpStatus.BAD_REQUEST);
 
 	}
+	
+	@ExceptionHandler(BranchNotFoundException.class)
+	public ResponseEntity<MyErrorDetails> myBNFException(BranchNotFoundException cn, WebRequest wr) {
+
+		MyErrorDetails error = new MyErrorDetails();
+		error.setTimestamp(LocalDate.now());
+		error.setMessage(cn.getMessage());
+		error.setDescription(wr.getDescription(false));
+
+		return new ResponseEntity<MyErrorDetails>(error, HttpStatus.BAD_REQUEST);
+
+	}
+	
+	
 }
