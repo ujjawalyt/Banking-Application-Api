@@ -27,7 +27,7 @@ public class Accounts {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="account_id")
 	private Long accountid;
 	@Column(name="account_type")

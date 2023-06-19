@@ -2,6 +2,7 @@ package com.banking.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customers.isPresent()) {
 			throw new CustomerNotFoundException("Customer already present with this email id");
 		}
+
+		UUID uuid = UUID.randomUUID();
+
+		long mostSignificantBits = uuid.getMostSignificantBits() & Long.MAX_VALUE;
+		long customerId = mostSignificantBits % 10000000;
+
 		Customers customers2 = modelMapper.map(customerDto, Customers.class);
+		customers2.setCustomerid(customerId);
 		Customers savedCustomer = customerRepo.save(customers2);
 		return modelMapper.map(savedCustomer, CustomerDto.class);
 
