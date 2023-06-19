@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Transactions {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="transaction_id")
 	private Long transactionid;
 	

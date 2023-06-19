@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.banking.api.dto.AccountDto;
 import com.banking.api.exception.AccountNotFoundException;
+import com.banking.api.exception.BranchNotFoundException;
 import com.banking.api.exception.CustomerNotFoundException;
 import com.banking.api.service.AccountService;
 
@@ -20,13 +21,13 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-	
-	@PostMapping("/customer/{customerId}")
-	public ResponseEntity<AccountDto> createNewAccountForUser(@RequestBody AccountDto accountDto ,
-			@PathVariable("customerId") Long customerId) throws CustomerNotFoundException, AccountNotFoundException{
-		
-		
-		AccountDto accountDto2 = accountService.createNewAccount(accountDto, customerId);
+
+	@PostMapping("/customer/{customerId}/branch/{branchId}")
+	public ResponseEntity<AccountDto> createNewAccountForUser(@RequestBody AccountDto accountDto,
+			@PathVariable("customerId") Long customerId, @PathVariable("branchId") Long branchId)
+			throws CustomerNotFoundException, AccountNotFoundException, BranchNotFoundException {
+
+		AccountDto accountDto2 = accountService.createNewAccount(accountDto, customerId, branchId);
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountDto2);
 	}
 }
