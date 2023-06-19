@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="Branches")
+@Table(name = "Branches")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,16 +23,16 @@ public class Branches {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="branch_id")
+	@Column(name = "branch_id")
 	private Long branchid;
-	
-	@Column(name="branch_name")
+
+	@Column(name = "branch_name")
 	private String branchname;
-	
+
 	private String address;
 	private String phone;
-	
+
 	@OneToOne(mappedBy = "branches")
 	private Accounts accounts;
-	
+
 }
