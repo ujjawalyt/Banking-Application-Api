@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banking.api.dto.AccountDto;
+import com.banking.api.dto.AccountDto1;
 import com.banking.api.exception.AccountNotFoundException;
 import com.banking.api.exception.BranchNotFoundException;
 import com.banking.api.exception.CustomerNotFoundException;
@@ -49,8 +50,8 @@ public class AccountController {
 			
 	 
 	 @GetMapping("/")
-	    public ResponseEntity<List<AccountDto>> getAllAccounts() throws AccountNotFoundException {
-	        List<AccountDto> accounts = accountService.getAllAccount();
+	    public ResponseEntity<List<AccountDto1>> getAllAccounts() throws AccountNotFoundException {
+	        List<AccountDto1> accounts = accountService.getAllAccount();
 	        return ResponseEntity.ok(accounts);
 	    }
 

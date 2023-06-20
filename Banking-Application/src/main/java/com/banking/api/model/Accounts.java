@@ -41,10 +41,12 @@ public class Accounts {
 	@JoinColumn(name ="customer_id")
 	private Customers customers;
 	
-	@OneToOne
-	@JoinColumn(name="branch_id")
+//	@OneToOne
+//	@JoinColumn(name="branch_id")
+//	private Branches branches;
+	
+	@ManyToOne
+	@JoinColumn(name = "branch_id")
 	private Branches branches;
-	
-	
 	
 }

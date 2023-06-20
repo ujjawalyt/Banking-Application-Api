@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.banking.api.dto.AccountDto;
+import com.banking.api.dto.AccountDto1;
 import com.banking.api.exception.AccountNotFoundException;
 import com.banking.api.exception.BranchNotFoundException;
 import com.banking.api.exception.CustomerNotFoundException;
@@ -18,7 +19,7 @@ public interface AccountService {
 
 	public AccountDto updateAccountAccountBalance(Double amount, Long accountId) throws AccountNotFoundException;
 
-	public List<AccountDto> getAllAccount() throws AccountNotFoundException;
+	public List<AccountDto1> getAllAccount() throws AccountNotFoundException;
 
 	public AccountDto getAccountById(Long accountId) throws AccountNotFoundException;
 	

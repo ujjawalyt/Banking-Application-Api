@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.api.dto.AccountDto;
+import com.banking.api.dto.AccountDto1;
+import com.banking.api.dto.CustomerDto;
 import com.banking.api.exception.AccountNotFoundException;
 import com.banking.api.exception.BranchNotFoundException;
 import com.banking.api.exception.CustomerNotFoundException;
@@ -52,12 +54,12 @@ public class AccountServiceImpl implements AccountService {
 				.orElseThrow(()-> new BranchNotFoundException ("Branch Not Found With this Branch Id" + branchId));
 				
 		
-		  UUID uuid = UUID.randomUUID();
-		   
-		   long accountId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
-		    
+//		  UUID uuid = UUID.randomUUID();
+//		   
+//		   long accountId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
+//		   long accountIds = accountId%1000000000;
 		Accounts accounts = modelMapper.map(accountDto, Accounts.class);
-		accounts.setAccountid(accountId);
+//		accounts.setAccountid(accountIds);
 		accounts.setCustomers(customers);
 		accounts.setBranches(branches);
 		accounts.setCreatedat(LocalDateTime.now());
@@ -83,16 +85,25 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<AccountDto> getAllAccount() throws AccountNotFoundException {
-		List<Accounts> accounts = accountRepo.findAll();
-	    if (accounts.isEmpty()) {
-	        throw new AccountNotFoundException("No accounts found");
-	    }
-	    return accounts.stream()
-	            .map(account -> modelMapper.map(account, AccountDto.class))
-	            .collect(Collectors.toList());
-	}
-
+	public List<AccountDto1> getAllAccount() throws AccountNotFoundException {
+        List<Accounts> accounts = accountRepo.findAll();
+        if (accounts.isEmpty()) {
+            throw new AccountNotFoundException("No accounts found");
+        }
+//        return accounts.stream()
+//                .map(account -> modelMapper.map(account, AccountDto1.class))
+//                .collect(Collectors.toList());
+        return accounts.stream()
+                .map(account -> {
+                    AccountDto1 accountDto = modelMapper.map(account, AccountDto1.class);
+                    CustomerDto customerDto = modelMapper.map(account.getCustomers(), CustomerDto.class);
+                    accountDto.setCustomerDto(customerDto);
+                    return accountDto;
+                })
+                .collect(Collectors.toList());
+    }
+	
+	
 	@Override
 	public AccountDto getAccountById(Long accountId) throws AccountNotFoundException {
 		Accounts account = accountRepo.findById(accountId)
@@ -102,7 +113,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public AccountDto deleteAccountById(Long accountId) throws AccountNotFoundException {
-		// TODO Auto-generated method stub
+		
 		Accounts existingAccount = accountRepo.findById(accountId)
 	            .orElseThrow(() -> new AccountNotFoundException("Account not found with ID: " + accountId));
 
