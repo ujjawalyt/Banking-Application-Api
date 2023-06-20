@@ -54,12 +54,12 @@ public class AccountServiceImpl implements AccountService {
 				.orElseThrow(()-> new BranchNotFoundException ("Branch Not Found With this Branch Id" + branchId));
 				
 		
-//		  UUID uuid = UUID.randomUUID();
-//		   
-//		   long accountId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
-//		   long accountIds = accountId%1000000000;
+		  UUID uuid = UUID.randomUUID();
+		   
+		   long accountId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
+		   long accountIds = accountId%1000000000;
 		Accounts accounts = modelMapper.map(accountDto, Accounts.class);
-//		accounts.setAccountid(accountIds);
+		accounts.setAccountid(accountIds);
 		accounts.setCustomers(customers);
 		accounts.setBranches(branches);
 		accounts.setCreatedat(LocalDateTime.now());
